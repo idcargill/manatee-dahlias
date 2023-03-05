@@ -7,10 +7,11 @@ const startServer = gqlServer.server.start();
 
 export default async function GraphqlAPI(
   req: NextApiRequest,
-  res: NextApiResponse<{ name: string }>
+  res: NextApiResponse
 ) {
   console.log('server starting');
   await startServer;
+
   await gqlServer.server.createHandler({
     path: '/api/graphql',
   })(req, res);

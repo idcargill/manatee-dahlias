@@ -39,6 +39,10 @@ class GraphqlApiServer {
       typeDefs: schema,
       resolvers: resolvers,
       csrfPrevention: true,
+      context: (req) => {
+        mergedContext.request = req;
+        return mergedContext;
+      },
       plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     });
 

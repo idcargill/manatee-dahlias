@@ -7,7 +7,7 @@ class HardinessZoneService extends RestConnector {
   }
 
   public getZoneByZipcode(zip: string) {
-    return this.get(`/zipcodes/${zip}`);
+    return this.get(`zipcodes/${zip}`);
   }
 }
 

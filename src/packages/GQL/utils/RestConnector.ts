@@ -11,16 +11,27 @@ export interface RestConnectorI {
 
 class RestConnector implements RestConnectorI {
   public baseUrl: string;
+  private headers: Record<string, any> | undefined;
 
   constructor(config: RestConnectorConfig) {
     this.baseUrl = config.baseUrl;
+    this.headers = config.headers;
   }
 
+  // https://plant-hardiness-zone.p.rapidapi.com/zipcodes/90210
+
   public get = async (path: string) => {
-    const response = await fetch(`${this.baseUrl}/${path}`);
-    const data = await response.json();
-    console.log(response);
-    return data;
+    const urlString = `https://${this.baseUrl}/${path}`;
+    const result = await fetch(urlString, {
+      method: 'GET',
+      headers: {
+        ...this.headers,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+
+    return result;
   };
 }
 
