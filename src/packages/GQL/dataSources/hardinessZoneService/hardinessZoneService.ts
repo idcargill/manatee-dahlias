@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import RestConnector, { RestConnectorConfig } from '../../utils/RestConnector';
 
 class HardinessZoneService extends RestConnector {
-  constructor(req: NextRequest, config: RestConnectorConfig) {
+  constructor(_: NextRequest, config: RestConnectorConfig) {
     super(config);
   }
 

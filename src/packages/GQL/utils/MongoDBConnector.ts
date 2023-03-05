@@ -1,5 +1,5 @@
 import { MongoClient, ObjectId } from 'mongodb';
-import { Request } from 'express';
+import { NextApiRequest } from 'next';
 
 /*
 A MongoDB connector for javascript and GQL
@@ -13,7 +13,7 @@ Config provides:
   Base methods typically take a mongoID and Collection name
 */
 export interface mongoConnectorConfig {
-  baseURL: any;
+  baseUrl: string;
   databaseName: string;
   timeout: number;
   headers: {};
@@ -25,10 +25,10 @@ class MongoDBConnector {
   public dbName: string;
   private baseURL: string;
   private collections: string[];
-  private collectionsMap: any;
+  private collectionsMap: string[];
 
-  constructor(req: Request, config: any) {
-    this.baseURL = config.baseURL;
+  constructor(req: NextApiRequest, config: mongoConnectorConfig) {
+    this.baseURL = config.baseUrl;
     this.dbName = config.databaseName;
     this.client = new MongoClient(this.baseURL);
     this.collections = config.collections;
@@ -59,6 +59,8 @@ class MongoDBConnector {
   }
 
   public async getEntireCollection(collection: string) {
+    console.log('getting everyone');
+    console.log(this.baseURL, this.client);
     try {
       await this.connect();
       const collectionName = this.getCollectionName(collection);

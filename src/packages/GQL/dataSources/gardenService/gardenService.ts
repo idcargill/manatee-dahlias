@@ -219,6 +219,7 @@ class GardenService extends MongoDBConnector {
   }
 
   public async getAllPlants(): Promise<Plant[] | null> {
+    console.log('gettting plants');
     const result: any = await this.getEntireCollection(CollectionNames.plants);
     return result;
   }

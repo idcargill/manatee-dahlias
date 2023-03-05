@@ -18,8 +18,6 @@ class RestConnector implements RestConnectorI {
     this.headers = config.headers;
   }
 
-  // https://plant-hardiness-zone.p.rapidapi.com/zipcodes/90210
-
   public get = async (path: string) => {
     const urlString = `https://${this.baseUrl}/${path}`;
     const result = await fetch(urlString, {
