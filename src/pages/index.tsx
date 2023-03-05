@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 const GetPlantsContainer = () => {
   const [data, setData] = useState<any[]>([]);
@@ -37,28 +38,55 @@ const GetPlantsContainer = () => {
       </ul>
     </>
   );
-
-
 };
 
-const Home = () => (
-  <>
-    <Head>
-      <title>Manatee Dahlias</title>
-      <meta content="Dahlia Town" name="description" />
-      <link href="/heart.svg" rel="icon" />
-    </Head>
+const LoginButton = () => {
+  const { data } = useSession();
 
-    <main className="main-content">
-      <div className="text-center text-2xl p-3 font-bold bg-emerald-300">
-        Welcome to Manatee Dahlias
-      </div>
+  const login = () => {
+    if (data?.user?.email) {
+      signOut();
+    }
+    signIn();
+  };
 
-      <GetPlantsContainer />
+  return (
+    <>
+      <button onClick={login}>{data?.user?.email ? 'Sign Out' : 'Sign In'}</button>
+    </>
+  );
+};
 
-    </main>
+const Home = () => {
+  const { data: session } = useSession();
 
+  console.log(session);
 
-  </>
-);
+  return (
+    <>
+      <Head>
+        <title>Manatee Dahlias</title>
+        <meta content="Dahlia Town" name="description" />
+        <link href="/heart.svg" rel="icon" />
+      </Head>
+
+      <main className="main-content">
+        <div className="text-center text-2xl p-3 font-bold bg-emerald-300">
+          Welcome to Manatee Dahlias
+        </div>
+
+        <GetPlantsContainer />
+        <LoginButton />
+        {session
+          ? (<>
+            <p>{session?.user?.email}</p>
+            <p>{session?.user?.name}</p>
+          </>)
+
+          : null}
+      </main>
+    </>
+  );
+};
+
 export default Home;
