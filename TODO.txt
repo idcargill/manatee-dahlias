@@ -1,6 +1,20 @@
-AUTH
+Setup auth Database
+
 MongoDB Connector
-config variables for local and deploy
+
+Auth GQL
+Store logged in user in GQL context
+configure GQL to use logged in user data fetching
 
 
 Apollo Client
+
+
+
+
+Login Flow
+Login through GQL / Provider
+choose provider
+login with GQL user service
+token back to client
+GQL queries with user info in context
