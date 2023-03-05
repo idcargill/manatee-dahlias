@@ -44,14 +44,14 @@ const GetPlantsContainer = () => {
 const Home = () => (
   <>
     <Head>
-      <title>Next-Tailwind</title>
-      <meta content="Project starter" name="description" />
+      <title>Manatee Dahlias</title>
+      <meta content="Dahlia Town" name="description" />
       <link href="/heart.svg" rel="icon" />
     </Head>
 
     <main className="main-content">
-      <div className="text-3xl font-bold underline bg-red-300">
-        Hello Tailwind!
+      <div className="text-center text-2xl p-3 font-bold bg-emerald-300">
+        Welcome to Manatee Dahlias
       </div>
 
       <GetPlantsContainer />
