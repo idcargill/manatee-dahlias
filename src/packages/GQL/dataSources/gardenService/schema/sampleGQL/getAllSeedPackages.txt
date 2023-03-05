@@ -1,0 +1,11 @@
+query {
+  getAllSeedPackages {
+    _id
+    plantName
+		plantInfo {
+      gardenFamily
+      perennial
+      daysToGerminate
+    }
+  }
+}

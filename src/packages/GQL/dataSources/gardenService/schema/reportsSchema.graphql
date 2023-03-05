@@ -1,0 +1,93 @@
+enum ReportType {
+  GARDEN
+  HARVEST
+  PLANT
+  PEST
+}
+
+input ReportInput {
+  reportType: ReportType!
+  airTemp: Float
+  soilTemp: Float
+  individualAmount: Int
+  weight: Float
+  financialYield: Float
+  pests: [String]
+  treatment: [String]
+  watered: Boolean
+  wateredAmount: Int
+  fertilized: Boolean
+  fertilizerType: FertilizerInput
+  note: String
+}
+
+interface BaseReport {
+  _id: ID
+  date:Date
+  reportType: ReportType
+  airTemp: Float
+  soilTemp: Float
+  note: String
+}
+
+union Observation = HarvestReport | PestReport | PlantReport | GardenReport
+
+"""
+Harvest information related to a single plant
+"""
+type HarvestReport implements BaseReport {
+  _id: ID
+  date:Date
+  reportType: ReportType
+  airTemp: Float
+  soilTemp: Float
+  individualAmount: Int
+  weight: Float
+  financialYield: Float
+  note: String
+}
+
+type PestReport implements BaseReport {
+  _id: ID
+  date: Date
+  reportType: ReportType
+  airTemp: Float
+  soilTemp: Float
+  pests: [String]
+  treatments: [String]
+  note: String
+}
+
+type PlantReport implements BaseReport {
+  _id: ID
+  date: Date
+  reportType: ReportType
+  airTemp: Float
+  soilTemp: Float
+  watered: Boolean
+  wateredAmount: Int
+  fertilized: Boolean
+  fertilizerType: Fertilizer
+  treatment: String
+  note: String
+}
+
+type GardenReport implements BaseReport {
+  _id: ID
+  date: Date
+  reportType: ReportType
+  airTemp: Float
+  soilTemp: Float
+  watered: Boolean
+  wateredAmount: Int
+  fertilized: Boolean
+  fertilizerType: Fertilizer
+  treatment: String
+  note: String
+}
+
+type Mutation {
+  addReport(id: ID, collection: String, payload: ReportInput): Seedling
+  updateReport(id: ID, payload: ReportInput): Observation
+  getReportById(id: ID): Observation
+}

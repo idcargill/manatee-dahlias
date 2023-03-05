@@ -1,0 +1,8 @@
+type ZoneResponse {
+  hardiness_zone: String
+  zipcode: String
+}
+
+type Query {
+  getZoneByZipcode(zipcode: String): ZoneResponse
+}

@@ -1,0 +1,124 @@
+scalar Date
+scalar Time
+
+"""
+Database collection names
+"""
+enum MongoCollections {
+  seeds
+  seedlings
+  plants
+  gardens
+}
+
+"""
+Basic address input
+"""
+input AddressInput {
+  street: String
+  city: String
+  state: String
+}
+
+"""
+Address, usually for seed/plant store merchant
+"""
+type Address {
+  street: String
+  city: String
+  state: String
+}
+
+"""
+Garden store or supplier
+"""
+input StoreMerchantInput {
+  name: String
+  address: AddressInput
+  phoneNumber: String
+  email: String
+  url: URL
+}
+
+"""
+Garden store or supplier
+"""
+type StoreMerchant {
+  id: ID
+  name: String
+  address: Address
+  phoneNumber: String
+  email: String
+  url: URL
+}
+
+"""
+Fertilizer and treatments
+"""
+type Fertilizer {
+  id: ID
+  fertilizerName: String
+  type: String
+  producer: String
+  supplier: StoreMerchant
+  nitrogen_N: Int
+  phosphorus_P: Int
+  potassium_K: Int
+  cost: Float
+  dateLastModified: Date
+  amount: String
+}
+
+input FertilizerInput {
+  fertilizerName: String
+  type: String!
+  producer: String
+  supplier: StoreMerchantInput
+  nitrogen_N: Int
+  phosphorus_P: Int
+  potassium_K: Int
+  cost: Float
+  amount: String
+}
+
+"""
+Sun requirements, defaults to full sun
+"""
+enum SunLight {
+  FULL_SHADE
+  PARTIAL_SHADE
+  PARTIAL_SUN
+  FULL_SUN
+}
+
+"""
+Calculated from zip code
+"""
+enum HardinessZone {
+  _1a
+  _1b
+  _2a
+  _2b
+  _3a
+  _3b
+  _4a
+  _4b
+  _5a
+  _5b
+  _6a
+  _6b
+  _7a
+  _7b
+  _8a
+  _8b
+  _9a
+  _9b
+  _10a
+  _10b
+  _11a
+  _11b
+  _12a
+  _12b
+  _13a
+  _13b
+}

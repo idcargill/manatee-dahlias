@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-LQQK3FHVM6'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LQQK3FHVM6');
+</script>
+
+<link rel="stylesheet" href="/i/c/bootstrap.5.1.3.min.css" /><link rel="stylesheet" href="/i/c/nga_20220305.min.css" /><style> html { scroll-behavior: auto !important; font-size: 18px !important; } .modal-dialog { max-width: 550px !important; } .grecaptcha-badge{display:none;} body { font-family: Calisto MT, Bookman Old Style, Bookman, Goudy Old Style, Garamond, Hoefler Text, Bitstream Charter, Georgia, serif !important; }
+</style>
+<script>
+// Prevent form resubmission.
+if (window.history.replaceState) { window.history.replaceState(null, null, window.location.href); }
+
+let ready = (callback) => {
+  if (document.readyState != "loading") callback();
+  else document.addEventListener("DOMContentLoaded", callback);
+}
+ready(() => {
+
+  // No framing the site, please.
+  if(top!=self) { top.location.replace(document.location); }
+
+  // ////////////////////////////////////////////
+  // The below forces the footer to stick to the bottom, if the page isn't tall enough.
+  let docHeight = window.innerHeight;
+  let footerHeight = document.querySelector('#atpfooter').offsetHeight;
+  let rect = document.querySelector('#atpfooter').getBoundingClientRect();
+
+  let footerTop = parseInt(rect.top + footerHeight);
+  if (footerTop < docHeight) {
+    document.querySelector("#atpfooter").style.marginTop = docHeight - footerTop + 'px';
+  }
+
+  function _GetURL(uri,ngaview) {
+    if (uri == "ModalNGAView") {
+      return("/apps/atpview/show/"+ngaview+"/");
+    } else if (uri == 'ModalShare') {
+      return;
+    } else {
+      return("/i/ajax/modal/"+uri+".php");
+    }
+  }
+
+  document.querySelectorAll('[data-bs-toggle="modal"]').forEach((e) => {
+    let thetitle = e.getAttribute('title');
+    let ngaview = e.getAttribute('data-ngaview');
+    let theModal = e.getAttribute('data-bs-target');
+    let uri = theModal.replace("#", "");
+    e.addEventListener("click", function (m) {
+      m.preventDefault();
+      document.getElementById(uri).querySelector(".modal-title").innerHTML = thetitle;
+
+      let url = _GetURL(uri,ngaview);
+      if (url) {
+        fetch(url).then(function (response) {
+          return response.text();
+        }).then(function (html) {
+          document.getElementById(uri).querySelector(".modal-body").innerHTML = html;
+        }).catch(function (err) {
+          console.warn('Unable to load '+url, err);
+        });
+      }
+    });
+  });
+
+  let input = document.getElementById("inputlogin_field_u");
+  if (typeof(input) != 'undefined' && input != null) {
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("login_btn_submit").click();
+      }
+    });
+    input = document.getElementById("inputlogin_field_p");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("login_btn_submit").click();
+      }
+    });
+  
+    document.querySelector('#login_btn_submit').addEventListener("click", function (m) {
+      let username = document.getElementById('inputlogin_field_u').value;
+      let password = document.getElementById('inputlogin_field_p').value;
+      if (username != "" && password != ""){
+        fetch('/i/ajax/users/login.php?u='+username+'&p='+password).then(function (response) {
+          return response.text();
+        }).then(function (html) {
+          if (html == 1) {
+            window.location.assign('/loggedin.php');
+          } else {
+            document.getElementById("login_btn_submit").disabled = false;
+            document.getElementById('login_error_message').innerHTML = html;
+          }
+        }).catch(function (err) {
+          console.warn('Unable to load '+url, err);
+        });
+      }
+    });
+  }
+
+  document.querySelectorAll('.lightbox').forEach((e) => {
+    e.removeAttribute('href');
+  });
+
+});
+
+</script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="max-image-preview:large">
+
+  <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.quantcast.com'
+    .concat('/choice/', 'tUCKCKWuAuJkW', '/', host, '/choice.js');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = { ...args[3], tag_version: 'V2' };
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->  <link rel="canonical" href="https://garden.org/plants/" />
+<link rel="search" href="https://garden.org/i/search/opensearch_plants.xml" type="application/opensearchdescription+xml" title="NGA Database search" />
+  <meta name="description" content="Search and browse our database of 779,303 plants, complete with images, comments, growing information and more.">
+  <meta property="og:image" content="https://garden.org/i/p/nga/nga_750.jpg">
+  <meta property="og:title" content="Plants Database">
+  <meta property="og:url" content="https://garden.org/plants/">
+  <meta property="og:type" content="website">
+  <meta property="og:site" content="Garden.org">
+
+    <meta property="fb:app_id" content="457278271124614" />
+    <meta name="msapplication-TileImage" content="/i/p/nga/nga_144.png">
+    <link rel="apple-touch-icon" href="/i/p/nga/nga_57.png"/>  
+    <link rel="apple-touch-icon" sizes="72x72" href="/i/p/nga/nga_72.png"/>  
+    <link rel="apple-touch-icon" sizes="114x114" href="/i/p/nga/nga_114.png"/>  
+  <title>Plants Database - Garden.org</title>
+<link rel="preload" href="https://a.pub.network/core/pubfig/cls.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+
+<script data-cfasync="false">
+  var freestar = freestar || {};
+  freestar.hitTime = Date.now();
+  freestar.queue = freestar.queue || [];
+  freestar.config = freestar.config || {};
+  freestar.debug = window.location.search.indexOf('fsdebug') === -1 ? false : true;
+  freestar.config.enabled_slots = [];
+  !function(a,b){var c=b.getElementsByTagName("script")[0],d=b.createElement("script"),e="https://a.pub.network/garden-org";e+=freestar.debug?"/qa/pubfig.min.js":"/pubfig.min.js",d.async=!0,d.src=e,c.parentNode.insertBefore(d,c)}(window,document);
+  freestar.initCallback = function () { (freestar.config.enabled_slots.length === 0) ? freestar.initCallbackCalled = false : freestar.newAdSlots(freestar.config.enabled_slots) }
+</script>
+
+
+
+
+
+</head>
+
+  <body>
+<nav class="navbar navbar-expand-lg navbar-light sticky-top pt-0 pb-0" id="nganav1">
+  <div class="container-fluid">
+    <a class="navbar-brand font100" href="/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAfUlEQVQ4y2NgGCKAkaEHCBmJVc7KsIThPxAuAbKIADwMu8DKQXAXkEcAiDGcgSsHwTNAETxAmeE2inIQvA0UxQGMGV5gKAfBF0AZLMCV4RNW5SD4CSiLBqIYfuJUDoI/gSqQQBHDX7zKQfAvUBUawKccK6BAA26RUQ1DFQAAGbaxQdZKs1sAAAAASUVORK5CYII=" class="pngblue" alt="Icon for home" width="24" height="24" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="learnDropdown">Learning Library</a>
+          <ul class="dropdown-menu" aria-labelledby="learnDropdown">
+            <li><a class="dropdown-item" href="/learn/">Learning Library Homepage</a></li>
+            <li><a class="dropdown-item" href="/learn/howto/grow/">Plant Care Guides</a></li>
+            <li><a class="dropdown-item" href="/learn/library/foodguide/">Food Gardening Guides</a></li>
+            <li><a class="dropdown-item" href="/learn/library/weeds/">Weed Library</a></li>
+            <li><a class="dropdown-item" href="/learn/library/pests/">Pest Control Library</a></li>
+            <li><a class="dropdown-item" href="/courseweb/">Garden Curricula</a></li>
+            <li><a class="dropdown-item" href="/ideas/podcast/">Podcast</a></li>
+            <li><a class="dropdown-item" href="/learn/videos/">Videos</a></li>
+            <li><a class="dropdown-item" href="/special/downloads/">Downloads</a></li>
+            <li><a class="dropdown-item" href="/nga/searchqa/">Questions and Answers</a></li>
+            <li><a class="dropdown-item" href="/nga/dictionary/">Garden Dictionary</a></li>
+            <li><a class="dropdown-item" href="/ediblelandscaping/">Edible Landscaping</a></li>
+            <li><a class="dropdown-item" href="/urbangardening/">Urban Gardening</a></li>
+            <li><a class="dropdown-item" href="/learn/articles/">Browse all articles</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dbDropdown">Plants Database</a>
+          <ul class="dropdown-menu" aria-labelledby="dbDropdown">
+            <li><a class="dropdown-item" href="/plants/">Plants Database</a></li>
+            <li><a class="dropdown-item" href="/plants/search/text.php">Search by name</a></li>
+            <li><a class="dropdown-item" href="/plants/search/advanced.php">Search by characteristics</a></li>
+            <li class="divider"></li>
+            <li><a class="dropdown-item" href="/plants/multi/">Plant Combinations</a></li>
+            <li><a class="dropdown-item" href="/apps/plant_photos/view/">See All New Database Photos</a></li>
+            <li class="divider"></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="appsDropdown">Useful Tools</a>
+          <ul class="dropdown-menu" aria-labelledby="appsDropdown">
+            <li><a class="dropdown-item" href="/apps/">View All Apps</a></li>
+            <li><a class="dropdown-item" href="/apps/calendar/">Vegetable Planting Calendar</a></li>
+            <li><a class="dropdown-item" href="/apps/frost-dates/">Frost Dates Lookup</a></li>
+            <li><a class="dropdown-item" href="/apps/swap/">Seed Swaps</a></li>
+            <li><a class="dropdown-item" href="/lists/">Plant Lists</a></li>
+            <li><a class="dropdown-item" href="/nga/calculators/">Gardening Calculators</a></li>
+            <li><a class="dropdown-item" href="/greenpages/">Green Pages</a></li>
+            <li><a class="dropdown-item" href="/nga/zipzone/">Zone Lookup</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="communityDropdown">Community</a>
+          <ul class="dropdown-menu" aria-labelledby="communityDropdown">
+            <li><a class="dropdown-item" href="/newswire/">Gardening News</a></li>
+            <li><a class="dropdown-item" href="/ideas/">Member Ideas</a></li>
+            <li><a class="dropdown-item" href="/forums/">Forums</a></li>
+            <li><a class="dropdown-item" href="/blogs/">Blogs</a></li>
+            <li><a class="dropdown-item" href="/apps/events/">Gardening Calendar of Events</a></li>
+            <li><a class="dropdown-item" href="/frogs/">Gardening Knowledgebase</a></li> 
+            <li><a class="dropdown-item" href="/frogs/ask/">Ask a Question</a></li>
+            <li><a class="dropdown-item" href="/apps/photocontest/">Photo Contests</a></li>
+          </ul>
+        </li>
+  
+      </ul>
+      <div class="d-flex">
+        
+      <a class="nav-link" href="/users/join/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAr0lEQVQ4y2NgGI5AhmEZwzMgXAZkEaX8LcN/KHxLjJZlcOUguIywhqcoGp7SQAPJTiLZ0yQHK25gx8BIivJUhr8MUzGFlRlyGDYx3GD4xNCDIp4MVP6PIQtVsRnDQbh328EiWlCZJKDy/0CjUEAgwy+48iawSAPDb4YgIJ0AVp6H7pj7SKFfD9XwH2jIFIY/QLoQ0/X/USBESxOUV4wtFP5j1dIKZJWSFvr2QyAHAwC8qW4fpqSD1wAAAABJRU5ErkJggg==" class="pngblue" alt="Icon for how_to_reg" width="24" height="24" /> Signup</a>
+      <a class="nav-link" href="/login.php"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAUElEQVQ4y2NgGELgPxp8zOBBmob/DI9It5F6GuqBkAQNGgy/gJL1pNgQiEULAT9gakHR8B8nrKeSBpKdRKGnyQhWEiOOHmmJrORNcgYaMAAAZWBvIS6X7QEAAAAASUVORK5CYII=" class="pngblue" alt="Icon for login" width="24" height="24" /> Login</a>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12" id="row_ngalogo">
+      <a href="/"><img src="/i/p/nga/header/logo.png" width="154" height="150" alt="National Gardening Association Logo" class="nga_nav150"></a><a href="/plants/"><img src="/i/p/nga/header/plants.png" width="250" height="150" alt="Header" id="row_text" class="nga_nav150"></a><a href="/special/offers/newsletter_signup.php"><img src="/i/p/btn_newsletter.png" alt="Get our newsletter" class="btn_newsletter" width="263" height="40"></a>
+
+    </div>
+  </div>
+
+</div>
+<div class="container" id="ngabody">
+    <div class="row" style="margin-bottom:5px;">
+      <div class="col-lg-8">
+        <h1 class="page-header">The Garden.org Plants Database</h1>
+    
+      </div>
+      <div class="col-lg-4 mt-3">
+        
+
+<form class="form-inline" action="/plants/search/text/" method="get">
+  <div class="input-group">
+    <input class="form-control" name="q" type="text" placeholder="Search Plants" aria-label="Enter search term..." aria-describedby="button-search475d8f2888f328a" value="" />
+    <button class="btn btn-secondary" id="button-search475d8f2888f328a" type="submit"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAnElEQVQ4y82TTQ6CMBBG34KlXEE4A2ybcD04QI8A9lJCQuodNF18brWxSBNDnNl9mZf5hz83w8iKWBkx34ILLHpzS7EFWERgoOFEw0BA2K1iRKB7UToCShc2IfpI6xFTCvCINtJahE8Bd0QZaSXikZvhltuD+9mUPu/B5W3aIRbqPbfkuWCABTFT7T/GmjkXqQ5DrpxzHqvKCz/YniVFVa3l5BPYAAAAAElFTkSuQmCC" class="pngwhite" alt="Icon for search" width="24" height="24" /></button>
+  </div>
+</form>
+
+      </div>
+    </div>
+    <div class="row"><div class="col-sm-12"><!-- Tag ID: garden_leaderboard_atf -->
+  <div align="center" data-freestar-ad="__320x100 __970x250" id="garden_leaderboard_atf">
+    <script data-cfasync="false">
+      freestar.config.enabled_slots.push({ placementName: "garden_leaderboard_atf", slotId: "garden_leaderboard_atf" });
+    </script>
+  </div><div class="alert alert-success">There are 779,303 plants, and 760,826 images in this world class database of plants, which is collaboratively developed by over 4,000 Garden.org members from around the globe.</a> (<a href="/plants/stats/">View more stats</a>)</div><P><div class="row">
+<div class="col-md-6"><div class="card  mb-2"><div class="card-body">
+<a href="/plants/group/" class="fs2">&raquo; View our plant-specific databases</a>
+<P><a href="/plants/search/advanced.php">&raquo; Search all plants by characteristics</a>
+<P><a href="/plants/browse/plants/genus/">&raquo; Browse by genus</a>
+<P><a href="/plants/propose/new_plant/" class="userlink">&raquo; Add a new plant to the database</a>
+<P>
+
+
+<form class="form-inline" action="/plants/search/text.php" method="get">
+  <div class="input-group">
+    <input class="form-control" name="q" type="text" placeholder="Search for a plant" aria-label="Enter search term..." aria-describedby="button-searchb362dddcc847e45" value="" />
+    <button class="btn btn-secondary" id="button-searchb362dddcc847e45" type="submit"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAnElEQVQ4y82TTQ6CMBBG34KlXEE4A2ybcD04QI8A9lJCQuodNF18brWxSBNDnNl9mZf5hz83w8iKWBkx34ILLHpzS7EFWERgoOFEw0BA2K1iRKB7UToCShc2IfpI6xFTCvCINtJahE8Bd0QZaSXikZvhltuD+9mUPu/B5W3aIRbqPbfkuWCABTFT7T/GmjkXqQ5DrpxzHqvKCz/YniVFVa3l5BPYAAAAAElFTkSuQmCC" class="pngwhite" alt="Icon for search" width="24" height="24" /></button>
+  </div>
+</form>
+</div></div>
+</div>
+<div class="col-md-6">
+<div class="card pretty-box mb-2"><div class="card-body"><iframe src="/plants/group/show_list.php?frame=1" style="height:250px;width:100%;" title="List of different plant databases"></iframe></div></div> </div></div><div class="row">
+<div class="col-md-6"><div class="card mb-2 pb-4"><div class="card-header">New Photos</div><div class="row row-cols-auto g-4 justify-content-center"><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776441/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776441" title="Photo by SL_gardener"><img src="/pics/2022-10-20/SL_gardener/016013-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by SL_gardener" alt="Photo by SL_gardener"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/SL_gardener/">SL_gardener</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776440/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776440" title="Photo by plantladylin"><img src="/pics/2022-10-20/plantladylin/400251-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by plantladylin" alt="Photo by plantladylin"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/plantladylin/">plantladylin</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776439/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776439" title="Photo by plantladylin"><img src="/pics/2022-10-20/plantladylin/c519d8-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by plantladylin" alt="Photo by plantladylin"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/plantladylin/">plantladylin</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776438/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776438" title="Photo by plantladylin"><img src="/pics/2022-10-20/plantladylin/d07fd4-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by plantladylin" alt="Photo by plantladylin"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/plantladylin/">plantladylin</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776437/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776437" title="Photo by plantladylin"><img src="/pics/2022-10-20/plantladylin/1350cb-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by plantladylin" alt="Photo by plantladylin"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/plantladylin/">plantladylin</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776436/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776436" title="Photo by BlueOddish"><img src="/pics/2022-10-20/BlueOddish/563a9e-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by BlueOddish" alt="Photo by BlueOddish"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/BlueOddish/">BlueOddish</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776435/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776435" title="Photo by robertduval14"><img src="/pics/2022-10-20/robertduval14/8a94ec-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by robertduval14" alt="Photo by robertduval14"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/robertduval14/">robertduval14</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776434/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776434" title="Photo by molanic"><img src="/pics/2022-10-20/molanic/866d97-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by molanic" alt="Photo by molanic"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/molanic/">molanic</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776433/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776433" title="Photo by molanic"><img src="/pics/2022-10-20/molanic/c3d983-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by molanic" alt="Photo by molanic"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/molanic/">molanic</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776432/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776432" title="Photo by molanic"><img src="/pics/2022-10-20/molanic/e34b4b-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by molanic" alt="Photo by molanic"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/molanic/">molanic</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776431/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776431" title="Photo by Zoia"><img src="/pics/2022-10-20/Zoia/e9bc5d-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by Zoia" alt="Photo by Zoia"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/Zoia/">Zoia</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776430/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776430" title="Photo by Zoia"><img src="/pics/2022-10-20/Zoia/0cf5ba-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by Zoia" alt="Photo by Zoia"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/Zoia/">Zoia</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776429/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776429" title="Photo by Kimberry56"><img src="/pics/2022-10-20/Kimberry56/7cf3a0-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by Kimberry56" alt="Photo by Kimberry56"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/Kimberry56/">Kimberry56</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776428/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776428" title="Photo by Zoia"><img src="/pics/2022-10-20/Zoia/e30817-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by Zoia" alt="Photo by Zoia"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/Zoia/">Zoia</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776427/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776427" title="Photo by NMoasis"><img src="/pics/2022-10-20/NMoasis/9f265f-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by NMoasis" alt="Photo by NMoasis"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/NMoasis/">NMoasis</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776426/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776426" title="Photo by NMoasis"><img src="/pics/2022-10-20/NMoasis/1e22bd-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by NMoasis" alt="Photo by NMoasis"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/NMoasis/">NMoasis</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776425/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776425" title="Photo by Valery33"><img src="/pics/2022-10-20/Valery33/21ebe3-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by Valery33" alt="Photo by Valery33"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/Valery33/">Valery33</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776424/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776424" title="Photo by NMoasis"><img src="/pics/2022-10-20/NMoasis/968cf3-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by NMoasis" alt="Photo by NMoasis"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/NMoasis/">NMoasis</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776423/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776423" title="Photo by NMoasis"><img src="/pics/2022-10-20/NMoasis/1083f8-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by NMoasis" alt="Photo by NMoasis"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/NMoasis/">NMoasis</a></li></ul></div></div><div class="col" style="width:204px"><div class="card m-2"><a href="/plants/photo/776422/" data-bs-toggle="modal" data-bs-target="#ModalNGAView" data-ngaview="db_photo-776422" title="Photo by NMoasis"><img src="/pics/2022-10-20/NMoasis/ea0a48-175.jpg"  width="175" height="175" class="card-img-top" title="Photo by NMoasis" alt="Photo by NMoasis"></a><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2">By <a href="/users/profile/NMoasis/">NMoasis</a></li></ul></div></div></div></div><p><a href="/apps/plant_photos/view/today/new/">&raquo; See more new plant database photos</a><br><a href="/plants/browse/plants/recent/">&raquo; View recently added plants</a><P>
+</div>
+<div class="col-md-6">
+<div class="card  mb-2"><div class="card-header">New Comments</div><div class="card-body">
+<table class="table table-striped table-bordered table-hover caption-top simple-table">
+ <tbody>  <tr>
+    <td data-th="">By <a href="/users/profile/Baja_Costero/">Baja_Costero</a> on Oct 20, 2022 11:35 AM, concerning plant: <a href="/plants/view/117655/Lesser-Candelabra-Tree-Euphorbia-cooperi/">Lesser Candelabra Tree (<i>Euphorbia cooperi</i>)</a><P>Tree Euphorbia from southern Africa, to about 16 feet tall. The stems have 4-6 ribs and bear marked constrictions between successive seasons of growth. They have regular spines and continuous horny spine shields along the ribs. Red or purple fruit appear at the tips in massive clusters. Plants in habitat typically have a single main stem with branches near the top, presumably because the earlier branches are lost over time. Rebranching is rare.<br>
+<br>
+This plant may be confused with the similar E. fortissima (with 3-4 ribs and persistent lower branches) and E. memoralis (which rebranches). It can be easily started from cuttings. The sap is unusually dangerous and may cause severe skin irritation.<P>[  | <a href="/thread/post/plants_comments/27593/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/SunriseSide/">SunriseSide</a> on Oct 20, 2022 11:15 AM, concerning plant: <a href="/plants/view/11011/Daylily-Hemerocallis-Butterscotch-Ruffles/">Daylily (<i>Hemerocallis</i> 'Butterscotch Ruffles')</a><P>'Butterscotch Ruffles' has a long bloom + rebloom season in my MI daylily bed.  In  2022, FFO was before 6/23 and LFO was 9/24.  The best early scape was 36 buds and 6-way branching in 2022.  The average counts are somewhat less.<P>[  | <a href="/thread/post/plants_comments/27592/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/gardengus/">gardengus</a> on Oct 19, 2022 4:58 PM, concerning plant: <a href="/plants/view/75426/Tatarian-Aster-Aster-tataricus/">Tatarian Aster (<i>Aster tataricus</i>)</a><P>This aster is the very last plant to bloom in my zone 5 garden. It continues to bloom till a hard freeze and is much loved by the bees. <br>
+ Very tall, sometimes over six feet, and needs no staking.<br>
+ Multiplies nicely but is not a thug.<br>
+In China the root is used medicinally.<br>
+<P>[  | <a href="/thread/post/plants_comments/27591/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/Baja_Costero/">Baja_Costero</a> on Oct 19, 2022 1:38 PM, concerning plant: <a href="/plants/view/111147/Madagascar-Ocotillo-Alluaudia-procera/">Madagascar Ocotillo (<i>Alluaudia procera</i>)</a><P>Spiny tree from Madagascar with an unusual Seussian habit (especially if left unpruned). The most common member of this genus in cultivation. Dramatic seasonality, usually associated with summer-fall growth and winter rest. Provide regular water during growth and maybe hold back a bit during rest (but year round water in moderation works great in our mild climate). This plant is often cultivated with spiny succulents from Madagascar like the crown of thorns and the tree Pachypodiums. It is entirely compatible with the succulent lifestyle and does very well in containers (up to a certain size/age, anyway).<br>
+<br>
+The common name Madagascar ocotillo references the similarities between this plant (as well as other members of its genus) and the North American ocotillos (<a href="https://garden.org/search/index.php?q=fouquieria" target="_blank">Fouquieria</a> spp., especially F. splendens). Both plants produce long, narrow stems studded with fierce spines guarding the leaves; both tend to show dramatic seasonality in their growth pattern; both produce two different types of leaves: the ones associated with new growth are small and short lived, while the ones associated with older growth (the only ones you typically see unless you look closely at the tips) are larger, appear in pairs on this species, and have a sideways orientation. Drought tolerance in both groups is associated with the loss of leaves.<br>
+<br>
+This plant is very easy to propagate from cuttings (time this activity for early summer) and will typically/often branch after beheading. In this way propagation can be entirely sustainable. Or selective annual pruning can be used to transform the tree-like habit to more of a spiny bush.<P>[  | <a href="/thread/post/plants_comments/27590/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/sedumzz/">sedumzz</a> on Oct 19, 2022 6:07 AM, concerning plant: <a href="/plants/view/806473/African-Violet-Streptocarpus-Ks-Lilac-Infusion/">African Violet (<i>Streptocarpus</i> 'K's Lilac Infusion')</a><P>Prolific from leaf propagations.<br>
+Note that the variegation on this plant is quite unstable in environmental conditions, and that blooms are extremely variable. Bloom sizes, color, and even the density and color of fantasy streaks or puffs vary greatly depending on temperature and light.<P>[  | <a href="/thread/post/plants_comments/27589/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/farmerdill/">farmerdill</a> on Oct 18, 2022 6:15 PM, concerning plant: <a href="/plants/view/829125/Carrot-Daucus-carota-subsp-sativus-Triton/">Carrot (<i>Daucus carota subsp. sativus</i> 'Triton')</a><P>An early maturing Imperator type from Sakata. Strong erect tops on a long (9-10 inch) Skinny (0.5 - 1 inch diameter) semi-blunt root. Recommended as a cut and peel type.<P>[  | <a href="/thread/post/plants_comments/27588/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/plantladylin/">plantladylin</a> on Oct 17, 2022 6:59 PM, concerning plant: <a href="/plants/view/799954/Lantana-Lantana-x-strigocamara/">Lantana (<i>Lantana x strigocamara</i>)</a><P>Lantana x strigocamara is an erect to scrambling shrub and is tolerant of a wide range of conditions. It flowers and fruits from spring through fall and the blooms attract bees, butterflies and hummingbirds. This shrub produces thousands of seeds annually that are readily spread by birds. In Florida, this plant  has invaded agricultural and natural areas, forming dense thickets and it is listed as a Category I non-native invasive in the state. <P>[  | <a href="/thread/post/plants_comments/27587/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/sallyg/">sallyg</a> on Oct 16, 2022 9:12 AM, concerning plant: <a href="/plants/view/163878/Softneck-Garlic-Allium-sativum-Lorz-Italian/">Softneck Garlic (<i>Allium sativum</i> 'Lorz Italian')</a><P>Planted my 1 /2 pound (4 heads) of Lorz Italian today from Mad River Garlic Growers. Each head had 7 or 8 or more good cloves. I did 5 rows of 7 spaced about 8 inches apart both ways, in a newly prepared bed. <P>[  | <a href="/thread/post/plants_comments/27586/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/dave/">dave</a> on Oct 14, 2022 7:16 PM, concerning plant: <a href="/plants/view/172055/West-Indian-Gherkin-Cucumis-anguria-var-longaculeatus/">West Indian Gherkin (<i>Cucumis anguria var. longaculeatus</i>)</a><P>This is a cucumber relative that is grown using the same techniques as growing regular cucumbers. The vines can crawl along the ground or be trellised.<br>
+<br>
+Fruit is very early, producing for me within 45 days of direct sowing. Abundant numbers of 1.5" long fruits on smallish vines with attractive dark green foliage. The taste is very similar to cucumbers. This species will only cross-pollinate with others in the species, so you can maintain seed purity pretty easily. It won't cross with any other regular cucumber.<P>[  | <a href="/thread/post/plants_comments/27585/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+  <tr>
+    <td data-th="">By <a href="/users/profile/lauribob/">lauribob</a> on Oct 14, 2022 4:19 PM, concerning plant: <a href="/plants/view/112249/Fiber-Optic-Grass-Isolepis-cernua/">Fiber Optic Grass (<i>Isolepis cernua</i>)</a><P>I like to grow this in a water garden. It's easy to start from seed and self seeds in the pots if I try to overwinter them.<P>[  | <a href="/thread/post/plants_comments/27584/" class="userlink">Reply to this comment</a> ]</td>
+  </tr>
+ </tbody></table><a href="/plants/browse/comments/recent/">&raquo; Continue viewing recent comments</a></div></div> </div></div></div></div><p><!-- Tag ID: garden_leaderboard_btf_1 -->
+  <div align="center" data-freestar-ad="__300x250 __320x100" id="garden_leaderboard_btf_1">
+    <script data-cfasync="false">
+      freestar.config.enabled_slots.push({ placementName: "garden_leaderboard_btf_1", slotId: "garden_leaderboard_btf_1" });
+    </script>
+  </div><p></div><div id="atpfooter"><div class="container"><div class="row"><div class="col font120">
+            <a href="/">Garden.org Homepage</a><p>
+            <a href="/help/">Help using the site</a><P>
+            <a href="/about/">About</a><P>
+            <a href="/about/contact/">Contact</a><P>
+            <a href="/about/tos/">Terms of Service</a><P>
+            <a href="/about/privacy/">Privacy</a><P>
+            <a href="/users/memberlist/">Memberlist</a><P>
+            <a href="/special/acorns/">Acorns</a><P>
+            <a href="/about/links/">Links</a><P>
+            <a href="/apps/ask/">Ask a Question</a><P>
+            <a href="/getstarted/">Getting Started Gardening</a><P>
+            <a href="/newsletter/">Newsletter</a><P>
+            
+            <p>&copy; 1972 - 2022 <a href="/">National Gardening Association</a><p>
+    Times are presented in US Central Standard Time<p></div><div class="col font120">
+      <a href="https://www.pinterest.com/ngagrows/">Pinterest</a><P>
+      <a href="https://www.facebook.com/Garden.Org/">Facebook</a><P>
+      <a href="https://www.youtube.com/user/nationalgardening">Youtube</a><P>
+      <a href="https://twitter.com/NatlGardening">Twitter</a><P>
+      <a href="https://www.instagram.com/nationalgardeningassoc/">Instagram</a><P>
+      <a href="https://linkedin.com/company/gardenorg/">Linkedin</a><P>
+    </div><div class="col">Today's site banner is by <a href="/users/profile/chhari55/">chhari55</a> and is called "<a href="/thread/go/166649/">Grasshopper on adenium</a>"<p><P>This site is protected by reCAPTCHA and the Google
+    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+    <a href="https://policies.google.com/terms">Terms of Service</a> apply.</div></div></div></div><script src="/i/js/bootstrap.5.1.3.bundle.min.js" defer></script>
+  <div class="modal fade" id="ModalNGAView" tabindex="-1" aria-labelledby="myNGAViewModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myNGAViewModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="/i/icon/loading.gif" alt="Loading...">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body></html>

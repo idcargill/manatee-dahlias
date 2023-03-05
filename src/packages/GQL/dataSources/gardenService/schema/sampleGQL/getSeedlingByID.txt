@@ -1,0 +1,13 @@
+query {
+  getSeedlingByID(seedlingID:"62fc4ffe5125a7c03d5efd48") {
+    _id
+    dateStarted
+    qtyStarted
+    seedPackage {
+      plantName
+      plantType
+      qty
+      purchaseCost
+    }
+  }
+}

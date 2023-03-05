@@ -1,0 +1,43 @@
+
+"""
+Garden Types
+"""
+enum GardenType {
+  RAISED_BED
+  POTTED
+  GROUND
+}
+
+"""
+Garden upload input info
+"""
+input GardenAreaInputPayload {
+  gardenName: String!
+  location: LocationInput
+  type: GardenType
+  hardinessZone: HardinessZone
+  firstSun: Time
+  lastSun: Time
+  dateCreated: Date
+}
+
+"""
+Collection of Plants in a shared location (pot, raised bed...)
+"""
+type GardenCollection {
+  _id: ID!
+  gardenName: String
+  hardinessZone: HardinessZone
+  type: GardenType
+  location: LocationDetails
+  firstSun: Time
+  lastSun: Time
+  dateCreated: Date
+  dateLastModified: Date
+  plants: [Plant]
+  reports: [Observation]
+}
+
+type Mutation {
+  addGardenArea(GardenAreaInput: GardenAreaInputPayload!): GardenCollection
+}

@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-LQQK3FHVM6'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LQQK3FHVM6');
+</script>
+
+<link rel="stylesheet" href="/i/c/bootstrap.5.1.3.min.css" /><link rel="stylesheet" href="/i/c/nga_20220305.min.css" /><style> html { scroll-behavior: auto !important; font-size: 18px !important; } .modal-dialog { max-width: 550px !important; } .grecaptcha-badge{display:none;} body { font-family: Calisto MT, Bookman Old Style, Bookman, Goudy Old Style, Garamond, Hoefler Text, Bitstream Charter, Georgia, serif !important; }
+</style>
+<script>
+// Prevent form resubmission.
+if (window.history.replaceState) { window.history.replaceState(null, null, window.location.href); }
+
+let ready = (callback) => {
+  if (document.readyState != "loading") callback();
+  else document.addEventListener("DOMContentLoaded", callback);
+}
+ready(() => {
+
+  // No framing the site, please.
+  if(top!=self) { top.location.replace(document.location); }
+
+  // ////////////////////////////////////////////
+  // The below forces the footer to stick to the bottom, if the page isn't tall enough.
+  let docHeight = window.innerHeight;
+  let footerHeight = document.querySelector('#atpfooter').offsetHeight;
+  let rect = document.querySelector('#atpfooter').getBoundingClientRect();
+
+  let footerTop = parseInt(rect.top + footerHeight);
+  if (footerTop < docHeight) {
+    document.querySelector("#atpfooter").style.marginTop = docHeight - footerTop + 'px';
+  }
+
+  function _GetURL(uri,ngaview) {
+    if (uri == "ModalNGAView") {
+      return("/apps/atpview/show/"+ngaview+"/");
+    } else if (uri == 'ModalShare') {
+      return;
+    } else {
+      return("/i/ajax/modal/"+uri+".php");
+    }
+  }
+
+  document.querySelectorAll('[data-bs-toggle="modal"]').forEach((e) => {
+    let thetitle = e.getAttribute('title');
+    let ngaview = e.getAttribute('data-ngaview');
+    let theModal = e.getAttribute('data-bs-target');
+    let uri = theModal.replace("#", "");
+    e.addEventListener("click", function (m) {
+      m.preventDefault();
+      document.getElementById(uri).querySelector(".modal-title").innerHTML = thetitle;
+
+      let url = _GetURL(uri,ngaview);
+      if (url) {
+        fetch(url).then(function (response) {
+          return response.text();
+        }).then(function (html) {
+          document.getElementById(uri).querySelector(".modal-body").innerHTML = html;
+        }).catch(function (err) {
+          console.warn('Unable to load '+url, err);
+        });
+      }
+    });
+  });
+
+  let input = document.getElementById("inputlogin_field_u");
+  if (typeof(input) != 'undefined' && input != null) {
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("login_btn_submit").click();
+      }
+    });
+    input = document.getElementById("inputlogin_field_p");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("login_btn_submit").click();
+      }
+    });
+  
+    document.querySelector('#login_btn_submit').addEventListener("click", function (m) {
+      let username = document.getElementById('inputlogin_field_u').value;
+      let password = document.getElementById('inputlogin_field_p').value;
+      if (username != "" && password != ""){
+        fetch('/i/ajax/users/login.php?u='+username+'&p='+password).then(function (response) {
+          return response.text();
+        }).then(function (html) {
+          if (html == 1) {
+            window.location.assign('/loggedin.php');
+          } else {
+            document.getElementById("login_btn_submit").disabled = false;
+            document.getElementById('login_error_message').innerHTML = html;
+          }
+        }).catch(function (err) {
+          console.warn('Unable to load '+url, err);
+        });
+      }
+    });
+  }
+
+  document.querySelectorAll('.lightbox').forEach((e) => {
+    e.removeAttribute('href');
+  });
+
+});
+
+</script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="max-image-preview:large">
+
+  <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.quantcast.com'
+    .concat('/choice/', 'tUCKCKWuAuJkW', '/', host, '/choice.js');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = { ...args[3], tag_version: 'V2' };
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) --><link rel="search" href="https://garden.org/i/search/opensearch_plants.xml" type="application/opensearchdescription+xml" title="NGA Database search" />
+  <meta property="og:image" content="https://garden.org/i/p/nga/nga_750.jpg">
+  <meta property="og:title" content="Searching the Garden.org Plant Database">
+  <meta property="og:url" content="">
+  <meta property="og:type" content="website">
+  <meta property="og:site" content="Garden.org">
+
+    <meta property="fb:app_id" content="457278271124614" />
+    <meta name="msapplication-TileImage" content="/i/p/nga/nga_144.png">
+    <link rel="apple-touch-icon" href="/i/p/nga/nga_57.png"/>  
+    <link rel="apple-touch-icon" sizes="72x72" href="/i/p/nga/nga_72.png"/>  
+    <link rel="apple-touch-icon" sizes="114x114" href="/i/p/nga/nga_114.png"/>  
+  <title>Searching the Garden.org Plant Database - Garden.org</title>
+<link rel="preload" href="https://a.pub.network/core/pubfig/cls.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+
+<script data-cfasync="false">
+  var freestar = freestar || {};
+  freestar.hitTime = Date.now();
+  freestar.queue = freestar.queue || [];
+  freestar.config = freestar.config || {};
+  freestar.debug = window.location.search.indexOf('fsdebug') === -1 ? false : true;
+  freestar.config.enabled_slots = [];
+  !function(a,b){var c=b.getElementsByTagName("script")[0],d=b.createElement("script"),e="https://a.pub.network/garden-org";e+=freestar.debug?"/qa/pubfig.min.js":"/pubfig.min.js",d.async=!0,d.src=e,c.parentNode.insertBefore(d,c)}(window,document);
+  freestar.initCallback = function () { (freestar.config.enabled_slots.length === 0) ? freestar.initCallbackCalled = false : freestar.newAdSlots(freestar.config.enabled_slots) }
+</script>
+
+
+
+
+
+</head>
+
+  <body>
+<nav class="navbar navbar-expand-lg navbar-light sticky-top pt-0 pb-0" id="nganav1">
+  <div class="container-fluid">
+    <a class="navbar-brand font100" href="/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAfUlEQVQ4y2NgGCKAkaEHCBmJVc7KsIThPxAuAbKIADwMu8DKQXAXkEcAiDGcgSsHwTNAETxAmeE2inIQvA0UxQGMGV5gKAfBF0AZLMCV4RNW5SD4CSiLBqIYfuJUDoI/gSqQQBHDX7zKQfAvUBUawKccK6BAA26RUQ1DFQAAGbaxQdZKs1sAAAAASUVORK5CYII=" class="pngblue" alt="Icon for home" width="24" height="24" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="learnDropdown">Learning Library</a>
+          <ul class="dropdown-menu" aria-labelledby="learnDropdown">
+            <li><a class="dropdown-item" href="/learn/">Learning Library Homepage</a></li>
+            <li><a class="dropdown-item" href="/learn/howto/grow/">Plant Care Guides</a></li>
+            <li><a class="dropdown-item" href="/learn/library/foodguide/">Food Gardening Guides</a></li>
+            <li><a class="dropdown-item" href="/learn/library/weeds/">Weed Library</a></li>
+            <li><a class="dropdown-item" href="/learn/library/pests/">Pest Control Library</a></li>
+            <li><a class="dropdown-item" href="/courseweb/">Garden Curricula</a></li>
+            <li><a class="dropdown-item" href="/ideas/podcast/">Podcast</a></li>
+            <li><a class="dropdown-item" href="/learn/videos/">Videos</a></li>
+            <li><a class="dropdown-item" href="/special/downloads/">Downloads</a></li>
+            <li><a class="dropdown-item" href="/nga/searchqa/">Questions and Answers</a></li>
+            <li><a class="dropdown-item" href="/nga/dictionary/">Garden Dictionary</a></li>
+            <li><a class="dropdown-item" href="/ediblelandscaping/">Edible Landscaping</a></li>
+            <li><a class="dropdown-item" href="/urbangardening/">Urban Gardening</a></li>
+            <li><a class="dropdown-item" href="/learn/articles/">Browse all articles</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dbDropdown">Plants Database</a>
+          <ul class="dropdown-menu" aria-labelledby="dbDropdown">
+            <li><a class="dropdown-item" href="/plants/">Plants Database</a></li>
+            <li><a class="dropdown-item" href="/plants/search/text.php">Search by name</a></li>
+            <li><a class="dropdown-item" href="/plants/search/advanced.php">Search by characteristics</a></li>
+            <li class="divider"></li>
+            <li><a class="dropdown-item" href="/plants/multi/">Plant Combinations</a></li>
+            <li><a class="dropdown-item" href="/apps/plant_photos/view/">See All New Database Photos</a></li>
+            <li class="divider"></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="appsDropdown">Useful Tools</a>
+          <ul class="dropdown-menu" aria-labelledby="appsDropdown">
+            <li><a class="dropdown-item" href="/apps/">View All Apps</a></li>
+            <li><a class="dropdown-item" href="/apps/calendar/">Vegetable Planting Calendar</a></li>
+            <li><a class="dropdown-item" href="/apps/frost-dates/">Frost Dates Lookup</a></li>
+            <li><a class="dropdown-item" href="/apps/swap/">Seed Swaps</a></li>
+            <li><a class="dropdown-item" href="/lists/">Plant Lists</a></li>
+            <li><a class="dropdown-item" href="/nga/calculators/">Gardening Calculators</a></li>
+            <li><a class="dropdown-item" href="/greenpages/">Green Pages</a></li>
+            <li><a class="dropdown-item" href="/nga/zipzone/">Zone Lookup</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="communityDropdown">Community</a>
+          <ul class="dropdown-menu" aria-labelledby="communityDropdown">
+            <li><a class="dropdown-item" href="/newswire/">Gardening News</a></li>
+            <li><a class="dropdown-item" href="/ideas/">Member Ideas</a></li>
+            <li><a class="dropdown-item" href="/forums/">Forums</a></li>
+            <li><a class="dropdown-item" href="/blogs/">Blogs</a></li>
+            <li><a class="dropdown-item" href="/apps/events/">Gardening Calendar of Events</a></li>
+            <li><a class="dropdown-item" href="/frogs/">Gardening Knowledgebase</a></li> 
+            <li><a class="dropdown-item" href="/frogs/ask/">Ask a Question</a></li>
+            <li><a class="dropdown-item" href="/apps/photocontest/">Photo Contests</a></li>
+          </ul>
+        </li>
+  
+      </ul>
+      <div class="d-flex">
+        
+      <a class="nav-link" href="/users/join/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAr0lEQVQ4y2NgGI5AhmEZwzMgXAZkEaX8LcN/KHxLjJZlcOUguIywhqcoGp7SQAPJTiLZ0yQHK25gx8BIivJUhr8MUzGFlRlyGDYx3GD4xNCDIp4MVP6PIQtVsRnDQbh328EiWlCZJKDy/0CjUEAgwy+48iawSAPDb4YgIJ0AVp6H7pj7SKFfD9XwH2jIFIY/QLoQ0/X/USBESxOUV4wtFP5j1dIKZJWSFvr2QyAHAwC8qW4fpqSD1wAAAABJRU5ErkJggg==" class="pngblue" alt="Icon for how_to_reg" width="24" height="24" /> Signup</a>
+      <a class="nav-link" href="/login.php"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAUElEQVQ4y2NgGELgPxp8zOBBmob/DI9It5F6GuqBkAQNGgy/gJL1pNgQiEULAT9gakHR8B8nrKeSBpKdRKGnyQhWEiOOHmmJrORNcgYaMAAAZWBvIS6X7QEAAAAASUVORK5CYII=" class="pngblue" alt="Icon for login" width="24" height="24" /> Login</a>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12" id="row_ngalogo">
+      <a href="/"><img src="/i/p/nga/header/logo.png" width="154" height="150" alt="National Gardening Association Logo" class="nga_nav150"></a><a href="/plants/"><img src="/i/p/nga/header/plants.png" width="250" height="150" alt="Header" id="row_text" class="nga_nav150"></a><a href="/special/offers/newsletter_signup.php"><img src="/i/p/btn_newsletter.png" alt="Get our newsletter" class="btn_newsletter" width="263" height="40"></a>
+
+    </div>
+  </div>
+
+</div>
+<div class="container" id="ngabody">
+    <div class="row" style="margin-bottom:5px;">
+      <div class="col-lg-8">
+        <h1 class="page-header">Searching the Garden.org Plant Database</h1>
+    
+      </div>
+      <div class="col-lg-4 mt-3">
+        
+
+<form class="form-inline" action="/plants/search/text/" method="get">
+  <div class="input-group">
+    <input class="form-control" name="q" type="text" placeholder="Search Plants" aria-label="Enter search term..." aria-describedby="button-search27e8f3c48836baa" value="" />
+    <button class="btn btn-secondary" id="button-search27e8f3c48836baa" type="submit"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAnElEQVQ4y82TTQ6CMBBG34KlXEE4A2ybcD04QI8A9lJCQuodNF18brWxSBNDnNl9mZf5hz83w8iKWBkx34ILLHpzS7EFWERgoOFEw0BA2K1iRKB7UToCShc2IfpI6xFTCvCINtJahE8Bd0QZaSXikZvhltuD+9mUPu/B5W3aIRbqPbfkuWCABTFT7T/GmjkXqQ5DrpxzHqvKCz/YniVFVa3l5BPYAAAAAElFTkSuQmCC" class="pngwhite" alt="Icon for search" width="24" height="24" /></button>
+  </div>
+</form>
+
+      </div>
+    </div>
+    <div class="row"><div class="col-lg-8"><!-- Tag ID: garden_leaderboard_atf -->
+  <div align="center" data-freestar-ad="__320x100 __970x250" id="garden_leaderboard_atf">
+    <script data-cfasync="false">
+      freestar.config.enabled_slots.push({ placementName: "garden_leaderboard_atf", slotId: "garden_leaderboard_atf" });
+    </script>
+  </div>
+<form class="form-inline" action="/plants/search/text/" method="get">
+  <div class="form-group" style="min-width:300px;">
+    <input type="text" style="min-width:300px;" name="q" class="form-control" placeholder="Search Plants" value="leeks">
+  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+</div>
+</form>
+<p>
+<div class="card  mb-2"><div class="card-body">Visit our <a href="/plants/group/leeks/">Leeks Plant Care Guide and Database</a>.<P></div></div><P>
+<table class="table table-striped table-bordered table-hover caption-top pretty-table">
+  <caption>Search Results</caption>
+ <tbody>  <tr>
+    <td data-th=""><a href="/plants/view/75202/Leeks-Allium-ampeloprasum/"><img src="/pics/2015-08-08/keithp2012/7ccd85-100.jpg" width="100" height="100" alt="store bought Leek, got this strange bloom..." title="store bought Leek, got this strange bloom..." class="thumb"></a></td>
+    <td data-th=""><a href="/plants/view/75202/Leeks-Allium-ampeloprasum/">Leeks (<i>Allium ampeloprasum</i>)</a></td>
+  </tr>
+  <tr>
+    <td data-th=""><a href="/plants/view/165945/Wild-Garlic-Nothoscordum-dialystemon/"><img src="/pics/2018-04-21/RuuddeBlock/5b1e29-100.jpg" width="100" height="100" alt="Image" title="Image" class="thumb"></a></td>
+    <td data-th=""><a href="/plants/view/165945/Wild-Garlic-Nothoscordum-dialystemon/">Wild Garlic (<i>Nothoscordum dialystemon</i>)</a></td>
+  </tr>
+ </tbody></table>
+ 
+ <P><P><P><a href="/plants/">&laquo; Return to the Plant Database homepage</a><P><a href="/plants/propose/new_plant/">&laquo; Add a new plant to the database</a></div><div class="col-lg-4"><div class="card  mb-2"><ul class="list-group list-group-flush align-middle"><li class="list-group-item pt-2"><a href="/plants/add/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAH0lEQVQ4y2NgGAVw8B8IRzXgUoQLUkfDaDyQqmFYAwDqLDPNE6CZygAAAABJRU5ErkJggg==" class="pngblue" alt="Icon for add" width="24" height="24" /> Add a plant</a></li><li class="list-group-item pt-2"><a href="/plants/search/text/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAnElEQVQ4y82TTQ6CMBBG34KlXEE4A2ybcD04QI8A9lJCQuodNF18brWxSBNDnNl9mZf5hz83w8iKWBkx34ILLHpzS7EFWERgoOFEw0BA2K1iRKB7UToCShc2IfpI6xFTCvCINtJahE8Bd0QZaSXikZvhltuD+9mUPu/B5W3aIRbqPbfkuWCABTFT7T/GmjkXqQ5DrpxzHqvKCz/YniVFVa3l5BPYAAAAAElFTkSuQmCC" class="pngblue" alt="Icon for search" width="24" height="24" /> Search by name</a></li><li class="list-group-item pt-2"><a href="/plants/search/advanced/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAApElEQVQ4y82TMQ6DMAxF38BYrtBwBlgjcT04QI4AzaUKEkrv0CrD78JAq0KJVKE6g6PIT/6Obfhzs3RMiIkO+y04w6GX48i2AIeItJScKGmJCLclRkTqxUtNROvCekQz3zX7BtGvAQFRvQEVIqwBd0QOi5IhRzxSM9xSa/A/+6XPffBpnfaIkWLPLAUuWGBEDJj9w1gwpCLmMOTKOWWxTFr4wfYEMJlepPlik/wAAAAASUVORK5CYII=" class="pngblue" alt="Icon for zoom_in" width="24" height="24" /> Search by type</a></li><li class="list-group-item pt-2"><a href="/plants/multi/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAANElEQVQ4y2NgGE7Ag+Exw38c8DFQFgM8wqkcBB9hagAJ4wJY5UY1jGrAIUdy4iM5eQ9dAAB+6WvR+dH9aAAAAABJRU5ErkJggg==" class="pngblue" alt="Icon for crop_square" width="24" height="24" /> Plant Combinations</a></li></ul></div><div class="card  mb-2"><div class="card-body"><B>Member Login:</B><P>
+  <div id="login_form">
+    <input type="hidden" id="login_redirect" value="/loggedin.php">
+    <div class="mb-3 form-floating"><input placeholder="Username or email" type="text" class="form-control" id="inputlogin_field_u" name="login_field_u" value=""><label for="inputlogin_field_u" class="form-label">Username or email</label></div>
+    <div class="mb-3 form-floating"><input placeholder="Password" type="password" class="form-control" id="inputlogin_field_p" name="login_field_p" value=""><label for="inputlogin_field_p" class="form-label">Password</label></div>
+    <P>
+    <button class="btn btn-primary" id="login_btn_submit">Login</button>
+    <P>
+    <div id="login_error_message"></div>
+  </div> 
+
+<P>( No account? <a href="/users/join/">Join now!</a> )
+</div></div><!-- Tag ID: garden_medrec_right_atf_1 -->
+  <div align="center" data-freestar-ad="__300x250" id="garden_medrec_right_atf_1">
+    <script data-cfasync="false">
+      freestar.config.enabled_slots.push({ placementName: "garden_medrec_right_atf_1", slotId: "garden_medrec_right_atf_1" });
+    </script>
+  </div><P></div></div><p><!-- Tag ID: garden_leaderboard_btf_1 -->
+  <div align="center" data-freestar-ad="__300x250 __320x100" id="garden_leaderboard_btf_1">
+    <script data-cfasync="false">
+      freestar.config.enabled_slots.push({ placementName: "garden_leaderboard_btf_1", slotId: "garden_leaderboard_btf_1" });
+    </script>
+  </div><p></div><div id="atpfooter"><div class="container"><div class="row"><div class="col font120">
+            <a href="/">Garden.org Homepage</a><p>
+            <a href="/help/">Help using the site</a><P>
+            <a href="/about/">About</a><P>
+            <a href="/about/contact/">Contact</a><P>
+            <a href="/about/tos/">Terms of Service</a><P>
+            <a href="/about/privacy/">Privacy</a><P>
+            <a href="/users/memberlist/">Memberlist</a><P>
+            <a href="/special/acorns/">Acorns</a><P>
+            <a href="/about/links/">Links</a><P>
+            <a href="/apps/ask/">Ask a Question</a><P>
+            <a href="/getstarted/">Getting Started Gardening</a><P>
+            <a href="/newsletter/">Newsletter</a><P>
+            
+            <p>&copy; 1972 - 2022 <a href="/">National Gardening Association</a><p>
+    Times are presented in US Central Standard Time<p></div><div class="col font120">
+      <a href="https://www.pinterest.com/ngagrows/">Pinterest</a><P>
+      <a href="https://www.facebook.com/Garden.Org/">Facebook</a><P>
+      <a href="https://www.youtube.com/user/nationalgardening">Youtube</a><P>
+      <a href="https://twitter.com/NatlGardening">Twitter</a><P>
+      <a href="https://www.instagram.com/nationalgardeningassoc/">Instagram</a><P>
+      <a href="https://linkedin.com/company/gardenorg/">Linkedin</a><P>
+    </div><div class="col">Today's site banner is by <a href="/users/profile/chhari55/">chhari55</a> and is called "<a href="/thread/go/166649/">Grasshopper on adenium</a>"<p><P>This site is protected by reCAPTCHA and the Google
+    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+    <a href="https://policies.google.com/terms">Terms of Service</a> apply.</div></div></div></div><script src="/i/js/bootstrap.5.1.3.bundle.min.js" defer></script>
+  <div class="modal fade" id="ModalNGAView" tabindex="-1" aria-labelledby="myNGAViewModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myNGAViewModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="/i/icon/loading.gif" alt="Loading...">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body></html>

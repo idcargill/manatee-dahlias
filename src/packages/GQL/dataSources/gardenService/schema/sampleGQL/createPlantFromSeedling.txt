@@ -1,0 +1,17 @@
+mutation {
+  createPlantFromSeedling(
+    seedlingID: "62fc4ffe5125a7c03d5efd48"
+    createPlantInput: {
+      qty: 2
+      dateGardenPlanted: "2022-5-15"
+    }
+  ) {
+    isPlantCollection
+    qty
+    plantName
+    isPlanted
+  	location {
+      locationDescription
+    }
+  }
+}

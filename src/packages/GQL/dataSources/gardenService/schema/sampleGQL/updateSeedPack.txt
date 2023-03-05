@@ -1,0 +1,23 @@
+mutation($id:ID, $updateInfo: SeedPackageInput) {
+  updateSeedPack(id:$id, updateInfo:$updateInfo)
+}
+
+
+{
+  "id": "62fc49c3bb968191b17f3540",
+  "updateInfo": {
+    "plantName":"Update1",
+    "plantInfo":{
+      "plantName":"Update1",
+      "gardenFamily":"TOMATO",
+      "daysToGerminate":14,
+      "daysToMaturity":65,
+      "spacing":"Every 1.5 inches",
+      "sunlight":"FULL_SUN",
+      "perennial": false,
+      "plantingInstructions":"don't fail",
+      "enemyPlants":["Tom's Trees"],
+      "friendlyPlants":["Onions"]
+    }
+  }
+}

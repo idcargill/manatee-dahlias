@@ -1,0 +1,46 @@
+
+
+input SeedlingPayload {
+  qtyStarted: Int
+  qtySprouted: Int
+  qtyTransplanted: Int
+  dateStarted: Date
+  dateSprouted: Date
+  dateTransplanted: Date
+  directSowDate: Date
+  totalDaysHardenedOff: Int
+}
+
+"""
+Seedling collection, started from seed
+""" 
+type Seedling {
+  _id: ID!
+  seedPackage: SeedPackage
+  plantInfo: PlantInfo
+  qtyStarted: Int
+  qtySprouted: Int
+  qtyTransplanted: Int
+  dateStarted: Date
+  dateSprouted: Date
+  dateTransplanted: Date
+  totalDaysHardenedOff: Int
+  dateEntered: Date
+  dateLastModified: Date
+  reports: [Observation]
+}
+
+type Query {
+  """Get one seedling group by ID"""
+  getSeedlingByID(seedlingID: ID): Seedling
+  """Get All Seedlings"""
+  getAllSeedlings: [Seedling]
+}
+type Mutation {
+  """Create a seedling from a seed package"""
+  createSeedlingFromSeedID(seedID: ID, seedlingPayload: SeedlingPayload): Seedling
+  """Update seedling information"""
+  updateSeedling(seedlingID: ID, seedlingPayload: SeedlingPayload): Seedling
+  """REMOVE a seedling"""
+  deleteSeedling(seedlingID: ID): String
+}

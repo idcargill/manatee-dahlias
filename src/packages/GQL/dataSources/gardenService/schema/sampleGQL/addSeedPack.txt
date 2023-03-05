@@ -1,0 +1,29 @@
+mutation($newSeedPack:SeedPackageInput) {
+  addSeedPack(newSeedPack:$newSeedPack) {
+    _id
+  }
+}
+
+
+{
+  "newSeedPack": {
+    "plantName": "Test3",
+    "plantType": "VEGETABLE",
+    "qty": 15,
+    "coverage": "",
+    "purchaseCost": 5.50,
+    "seedPurveyor": "Territorial",
+    "seedMerchant": {
+      "name": "Walts",
+      "address": {
+        "street": "12103 SE68th Pl",
+        "city": "Seattle",
+        "state": "WA"
+      	},
+      "phoneNumber": "123-456-789",
+      "email": "Walts@plantThis.com"
+    	},
+    "datePurchased": "2021-4-15",
+    "dateExpires": "2023-5-01",
+    "note": "Bought after getting angry Bagels"
+  }

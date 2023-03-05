@@ -1,0 +1,8 @@
+query {
+  getAllSeedlings{
+    _id
+    seedPackage {
+      plantName
+    }
+  }
+}

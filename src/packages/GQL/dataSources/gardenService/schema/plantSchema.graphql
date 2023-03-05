@@ -1,0 +1,487 @@
+"""
+Common Garden Family Name
+"""
+enum GardenFamily {
+  BEANS
+  BERRIES
+  BROCCOLI
+  CABBAGE
+  CARROTS
+  CUCUMBERS
+  FLOWERS
+  GARLIC
+  HERBS
+  LETTUCE
+  GREENS
+  MELONS
+  ONIONS
+  PEAS
+  POTATO
+  PUMPKIN
+  RADISH
+  SQUASH
+  TOMATO
+  NO_LABEL
+}
+
+"""
+Nerdy Plant Families
+"""
+enum PlantFamily {
+  """
+  Onion Family
+  """
+  ALLIUMS
+  """
+  Beetroot Family (chard and spinach)
+  """
+  AMARANTHACEAE
+  """
+  Sunflower Family
+  """
+  ASTERS
+  """
+  Ornamental flowering plants
+  """
+  AURUMS
+  """
+  Cabbage Family
+  """
+  CRUCIFERS
+  """
+  Gourd family
+  """
+  CURCURBITS
+  """
+  Spurge family
+  """
+  EUPHORBIAS
+  """
+  Maize
+  """
+  GRASSES
+  """
+  Bean Family
+  """
+  LEGUMES
+  """
+  Okra is the only edible member of this family
+  """
+  MALLOWS
+  """
+  Ornamental flowers and sweet potato
+  """
+  MORNING_GLORIES
+  """
+  Nightshade family
+  """
+  SOLANACEAE
+  """
+  Carrot family
+  """
+  UMBELLIFERS
+  """
+  Ginger Family
+  """
+  ZINGIBERACEAE
+
+  none
+}
+
+"""
+Categories of plants
+"""
+enum PlantType {
+  FLOWER
+  VEGETABLE
+  SHRUB
+  FRUIT_TREE
+  TREE
+}
+
+"""
+Sun requirements, defaults to full sun
+"""
+enum SunLight {
+  FULL_SUN
+  FULL_SHADE
+  PARTIAL_SUN
+  PARTIAL_SHADE
+}
+
+"""
+Calculated from zip code
+"""
+enum HardinessZone {
+  _1a
+  _1b
+  _2a
+  _2b
+  _3a
+  _3b
+  _4a
+  _4b
+  _5a
+  _5b
+  _6a
+  _6b
+  _7a
+  _7b
+  _8a
+  _8b
+  _9a
+  _9b
+  _10a
+  _10b
+  _11a
+  _11b
+  _12a
+  _12b
+  _13a
+  _13b
+}
+
+"""
+Plant or Plant Row location specifics
+"""
+type LocationDetails {
+  coordinates: [Float]
+  polygon: [Float]
+  area: Float
+  width: Float
+  length: Float
+  height: Float
+  locationDescription: String
+}
+
+"""
+Update location details
+"""
+input LocationInput {
+  coordinates: [Float]
+  polygon: [Float]
+  area: Float
+  width: Float
+  length: Float
+  height: Float
+  locationDescription: String
+}
+
+"""
+Update Plant info
+"""
+input UpdatePlantPayload {
+  plantName: String
+  plantType: PlantType
+  gardenFamily: GardenFamily
+  plantFamily: PlantFamily
+  daysToGerminate: Int
+  daysToMaturity: Int
+  spacing: String
+  sunlight: SunLight
+  standardWidth: Int
+  standardHeight: Int
+  perennial: Boolean
+  determinate: Boolean
+  plantingInstructions: String
+  friendlyPlants: [String]
+  enemyPlants: [String]
+  location: LocationInput
+  isPlantCollection: Boolean
+  qty: Int
+  dateDirectSow: Date
+  coverage: String
+  purchaseCost: Float
+  seedMerchant: StoreMerchantInput
+  seedPurveyor: String
+  dateGardenPlanted: Date
+  datePurchased: Date
+}
+
+"""
+ufSeeds
+"""
+type PlantCareInstructions {
+  beforePlanting: String
+  planting: String
+  watering: String
+  fertilizer: String
+  daysToMaturity: String
+  harvesting: String
+  storing: String
+  pestsDisease: String
+  tips: String
+}
+
+type PlantInfo {
+  _id: ID
+  plantName: String
+  gardenFamily: GardenFamily
+  plantFamily: PlantFamily
+  daysToGerminate: Int
+  daysToMaturity: Int
+  spacing: String
+  sunlight: SunLight
+  standardWidth: Int
+  standardHeight: Int
+  perennial: Boolean
+  determinate: Boolean
+  plantingInstructions: String
+  friendlyPlants: [String]
+  enemyPlants: [String]
+}
+
+input NewPlantInput {
+  plantName: String!
+  plantType: PlantType!
+  gardenFamily: GardenFamily
+  plantFamily: PlantFamily
+  daysToGerminate: Int
+  daysToMaturity: Int
+  spacing: String
+  sunlight: SunLight
+  standardWidth: Int
+  standardHeight: Int
+  perennial: Boolean
+  determinate: Boolean
+  plantingInstructions: String
+  friendlyPlants: [String]
+  enemyPlants: [String]
+  location: LocationInput
+  isPlantCollection: Boolean
+  qty: Int
+  dateDirectSow: Date
+  coverage: String
+  purchaseCost: Float
+  seedMerchant: StoreMerchantInput
+  seedPurveyor: String
+  datePurchased: Date
+}
+
+interface Vegetable {
+  _id: ID
+  plantName: String
+  gardenFamily: GardenFamily
+  plantFamily: PlantFamily
+  daysToGerminate: Int
+  daysToMaturity: Int
+  spacing: String
+  sunlight: SunLight
+  standardWidth: Int
+  standardHeight: Int
+  perennial: Boolean
+  determinate: Boolean
+  plantingInstructions: String
+  friendlyPlants: [String]
+  enemyPlants: [String]
+  fruitingTime: String
+  fruitSkinColor: String
+  bestUses: [String]
+}
+
+interface Flower {
+  flowers: String
+  color: String
+  undergroundStructures: String
+  classification: String
+  ploidy: String
+  parantage: String
+  hybridizer: String
+  yearOfRegistration: String
+  yearOfIntroduction: String
+  seedlingNumber: String
+  registeredHeight: String
+  bloomSeason: String
+  flowerForm: String
+  bloomColorClassification: [String]
+  flowerPatterns: [String]
+  bloomColorDescription: [String]
+  beardColor: String
+  styleArmColor: String
+  fragrance: [String]
+}
+
+interface PlantDbFlower_Dahlias {
+  size: String
+  form: String
+  color: String
+  yearIntroduced: String
+  countryOfOrigin: String
+  hybridizer: String
+  ADSCode: String
+}
+
+interface PlantDbFlower_Iris {
+  hybridizer: String
+  yearOfRegistration: String
+  yearOfIntroduction: String
+  seedlingNumber: String
+  classification: String
+  registeredHeight: String
+  bloomSeason: String
+  flowerForm: String
+  bloomColorClassification: [String]
+  flowerPatterns: [String]
+  bloomColorDescription: [String]
+  beardColor: String
+  styleArmColor: String
+  fragrance: [String]
+}
+
+type PlantDbInfoRaw {
+  skinColor: String
+  fruitShape: String
+  fruitSize: String
+  leafType: String
+  bestUses: String
+  growthMode: String
+  earliness: String
+  country: String
+  plantHabit: String
+  lifeCycle: String
+  sunRequirements: String
+  waterPreferences: String
+  minimumColdHardiness: String
+  plantHeight: String
+  plantSpread: String
+  leaves: String
+  fruit: String
+  fruitingTime: String
+  flowerColor: String
+  bloomSize: String
+  flowerTime: String
+  uses: [String]
+  edibleParts: String
+  eatingMethods: [String]
+  resistance: String
+  toxicity: [String]
+  propagationSeeds: String
+  propagationOtherMethods: String
+  pollinators: [String]
+  containers: String
+  flowers: String
+  undergroundStructures: String
+  dynamicAccumulator: [String]
+}
+
+input PlantInfoInput {
+  plantName: String
+  gardenFamily: GardenFamily
+  plantFamily: PlantFamily
+  daysToGerminate: Int
+  daysToMaturity: Int
+  spacing: String
+  sunlight: SunLight
+  standardWidth: Int
+  standardHeight: Int
+  perennial: Boolean
+  determinate: Boolean
+  plantingInstructions: String
+  friendlyPlants: [String]
+  enemyPlants: [String]
+}
+
+"""
+Individual Plant instance or collection/row
+"""
+type Plant {
+  """
+  Single plant identifier
+  """
+  _id: ID
+  isPlantCollection: Boolean
+  qty: Int
+  """
+  Common simple name: "Dancing with Smurfs
+  """
+  plantName: String!
+  """
+  Decorative or vegetable
+  """
+  plantType: PlantType
+  plantInfo: PlantInfo
+  location: LocationDetails
+  """
+  currently growing in your garden
+  """
+  isPlanted: Boolean
+  """
+  was stared from seed
+  """
+  isFromSeed: Boolean
+  """
+  date put in the ground as seed or transplant
+  """
+  dateGardenPlanted: Date
+  """
+  direct seed start date
+  """
+  dateDirectSow: Date
+  dateRemovedFromGarden: Date
+  plantPurchasePrice: Float
+  """
+  Just a little guy's seed life!
+  """
+  seedLife: Seedling
+  """
+  first harvest/flower
+  """
+  firstFruit: Date
+  """
+  last harvest or cutting
+  """
+  lastFruit: Date
+  """
+  last modified
+  """
+  dateModified: Date
+  """
+  Notes will be collected in a log with all reports
+  """
+  reports: [Observation]
+}
+
+input CreatePlantInput {
+  qty: Int
+  isPlanted: Boolean
+  dateGardenPlanted: Date
+  locationDetails: LocationInput
+}
+
+type Query {
+  """
+  Get Plant by ID
+  """
+  getPlantByID(id: ID!): Plant
+  """
+  Get all plant records
+  """
+  getAllPlants: [Plant]
+}
+
+type Mutation {
+  """
+  Create a new Plant without seeds
+  """
+  createPlant(newPlantInput: NewPlantInput!): Plant
+  """
+  Create a plant from a seedling
+  """
+  createPlantFromSeedling(
+    seedlingID: ID
+    createPlantInput: CreatePlantInput
+  ): Plant
+  """
+  Update plant information
+  """
+  updatePlant(id: ID!, updatePlantPayload: UpdatePlantPayload): Plant
+  """
+  Delete Plant
+  """
+  deletePlant(id: ID!): String
+
+  """
+  Remove plant from the garden
+  """
+  removePlantFromGarden(plantID: ID): String
+}

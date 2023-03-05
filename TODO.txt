@@ -1,0 +1,6 @@
+AUTH
+MongoDB Connector
+config variables for local and deploy
+
+
+Apollo Client

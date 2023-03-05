@@ -1,0 +1,5 @@
+
+
+type Query {
+  plantTextSearch(text:String): String
+}
