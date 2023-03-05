@@ -59,9 +59,7 @@ const LoginButton = () => {
 
 const Home = () => {
   const { data: session } = useSession();
-
   console.log(session);
-
   return (
     <>
       <Head>

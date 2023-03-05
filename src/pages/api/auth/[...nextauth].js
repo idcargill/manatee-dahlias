@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 // import GithubProvider from "next-auth/providers/github";
 import Auth0Provider from 'next-auth/providers/auth0';
 
+
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -17,7 +18,13 @@ export const authOptions = {
     }),
   ],
   debug: true,
-
+  pages: {
+    signIn: '/auth/signin',
+  },
+  userInfo: {
+    url: "http://localhost:3000/api/auth/oauth/userinfo",
+    params: { some: 'pet' },
+  },
 };
 
 export default NextAuth(authOptions);
