@@ -1,0 +1,20 @@
+enum SoilActions {
+  ADD_SOIL
+  COMPOST
+  COVER
+  COVER_CROP
+  FERTILIZE
+  TILL
+  MULCH
+}
+
+"""
+Placeholder for soil report data
+"""
+type SoilComposition {
+  K: String
+  N: String
+  P: String
+  organicMatter: String
+  note: String
+}

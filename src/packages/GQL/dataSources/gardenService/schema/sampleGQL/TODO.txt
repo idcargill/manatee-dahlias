@@ -1,0 +1,33 @@
+
+seedPack Builder
+seedlingPayload Builder
+plantPayload Builder
+
+addPlant(no seedling)
+addPlantToGarden
+x removePlantFromGarden
+
+
+
+getExpiredSeeds
+getViableSeeds
+
+REPORTS
+addReport to plant, garden, seedling
+
+getAllReports of type
+getReportsBy ID and TYPE
+
+
+getGardenByUserID
+ - getGardenByYear
+
+logIn
+logOut
+
+
+
+x delete one (id, collection)
+x find one (id, collection)
+x findAll(collection)
+x updateOne(id, collection, payload)

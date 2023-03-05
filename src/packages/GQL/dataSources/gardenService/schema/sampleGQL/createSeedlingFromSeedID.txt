@@ -1,0 +1,20 @@
+mutation($seedID:ID, $createSeedlingInput: CreateSeedlingInput) {
+  createSeedlingFromSeedID(seedID:$seedID, createSeedlingInput:$createSeedlingInput) {
+    _id
+    seedPackage {
+      _id
+      plantName
+    }
+    qtyStarted
+    dateStarted
+  }
+}
+
+
+{
+  "seedID": "62fc49e0bb968191b17f3541",
+  "createSeedlingInput": {
+    "dateStarted": "2022-5-15",
+    "qtyStarted": 10
+  }
+}

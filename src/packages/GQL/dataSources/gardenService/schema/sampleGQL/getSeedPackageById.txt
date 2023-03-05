@@ -1,0 +1,35 @@
+query {
+    getSeedPackageById(id:"62fc49c3bb968191b17f3540") {
+    _id
+    plantName
+		plantType
+    qty
+    coverage
+    purchaseCost
+    seedMerchant {
+      name
+      email
+      phoneNumber
+    }
+    seedPurveyor
+    dateExpires
+    datePurchased
+    note
+    plantInfo {
+      _id
+      plantName
+      gardenFamily
+      spacing
+      sunlight
+      daysToMaturity
+      daysToGerminate
+      determinate
+      standardWidth
+      standardHeight
+      perennial
+      plantingInstructions
+      friendlyPlants
+      enemyPlants
+    }
+  }
+}
