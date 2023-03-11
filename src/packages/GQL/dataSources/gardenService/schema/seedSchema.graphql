@@ -41,16 +41,24 @@ Update seed pack information
 input SeedPackageInput {
   plantName: String!
   plantType: PlantType!
-  gardenFamily: GardenFamily
-  plantFamily: PlantFamily
-  plantInfo: PlantInfoInput
+  gardenFamily: GardenFamily!
+  perennial: Boolean!
+  determinate: Boolean!
+  sunlight: SunLight
   qty: Int
+  plantFamily: PlantFamily
+  daysToGerminate: Int
+  spacing: String
+  standardWidth: Int
+  standardHeight: Int
   coverage: String
   purchaseCost: Float
   seedMerchant: StoreMerchantInput
   seedPurveyor: String
   datePurchased: Date
   dateExpires: Date
+  friendlyPlants: [String]
+  enemyPlants: [String]
   note: String
 }
 
@@ -59,39 +67,60 @@ A package of seeds. Expiration date defaults to 3 years from first entered date
 """
 type SeedPackage {
   _id: ID!
-  """ Common plant name"""
+  """
+  Common plant name
+  """
   plantName: String
   plantType: PlantType
   plantInfo: PlantInfo
-  """ Seed quantity upon time of purchase"""
+  """
+  Seed quantity upon time of purchase
+  """
   qty: Int
-  """Coverage of entire seed package"""
+  """
+  Coverage of entire seed package
+  """
   coverage: String
   purchaseCost: Float
-  """Store where seed was purchased"""
+  """
+  Store where seed was purchased
+  """
   seedMerchant: StoreMerchant
-  """ Seed producer"""
+  """
+  Seed producer
+  """
   seedPurveyor: String
   datePurchased: Date
-  """Defaults to 3 years after purchase"""
+  """
+  Defaults to 3 years after purchase
+  """
   dateExpires: Date
   dateLastModified: Date
   note: String
 }
 
-
 type Query {
-  """Get one seed pack"""
+  """
+  Get one seed pack
+  """
   getSeedPackageById(id: ID): SeedPackage
-  """Get all seed packages"""
+  """
+  Get all seed packages
+  """
   getAllSeedPackages: [SeedPackage]
 }
 
 type Mutation {
-  """Add a packet of seeds to the seeds collection"""
-  addSeedPack(seedPackageInput:SeedPackageInput): SeedPackage
-  """Update Seed Package information """
+  """
+  Add a packet of seeds to the seeds collection
+  """
+  addSeedPack(seedPackageInput: SeedPackageInput): SeedPackage
+  """
+  Update Seed Package information
+  """
   updateSeedPack(id: ID, seedPackageInput: SeedPackageInput): SeedPackage
-  """Remove Seed Package forever"""
+  """
+  Remove Seed Package forever
+  """
   deleteSeedPack(id: ID): String
 }
