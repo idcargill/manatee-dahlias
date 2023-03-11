@@ -36,6 +36,21 @@ const GetPlantsContainer = () => {
             : null
         }
       </ul>
+
+      <div className="m-5">
+        <div className="bg-cGreen">cGreen</div>
+        <div className="bg-cGray">cGray</div>
+        <div className="bg-cBlue">cBlue</div>
+        <div className="bg-cViolet">cViolet</div>
+        <div className="bg-cDark">cDark</div>
+      </div>
+
+      <div className="bg-cBlue m-3 p-2 w-96 rounded-md">
+        <h3 className="bg-cGray text-white p-2">Heading</h3>
+        <div className="border-4 p-2  border-cGreen ">Description</div>
+        <button className="bg-cDark text-white p-2 animate-slideInLeft">push</button>
+      </div>
+
     </>
   );
 };
